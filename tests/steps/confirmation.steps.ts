@@ -5,7 +5,7 @@ import { expect } from "@playwright/test";
 
 
 Given("the user access the SelectQuote homepage", async function (this: PlaywrightWorld) {
-    await this.page.goto(URLS.HOMEPAGE, {timeout: 10000});
+    await this.page.goto(URLS.HOMEPAGE, { timeout: 10000 });
 });
 
 When("the user click the Get a Quote button", async function (this: PlaywrightWorld) {
@@ -53,7 +53,7 @@ Then("user should be redirected to the correct confirmation page", async functio
 });
 
 Then("confirmation url should be correct", async function (this: PlaywrightWorld) {
-    expect(this.page.url()).toContain(URLS.HOMEPAGE+"final-expenses/quote-form/confirmation-g")
+    expect(this.page.url()).toContain(URLS.HOMEPAGE + "final-expenses/quote-form/confirmation-g")
 })
 
 Then("email {string} should be the same", async function (this: PlaywrightWorld, email: string) {

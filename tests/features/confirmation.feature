@@ -22,5 +22,5 @@ Feature: Quote Form
         And email "<email>" should be the same
 
         Examples:
-            | month     | day   | year | gender | coverage | zipCode | email          | firstName | lastName | phone          |
-            | January   | 2     | 1940 | Male   | 20000    | 90001   | test@gmail.com | Test      | Name     | (913) 897-4196 |
+            | month   | day | year | gender | coverage | zipCode | email          | firstName | lastName | phone          |
+            | January | 2   | 1940 | Male   | 20000    | 90001   | test@gmail.com | Test      | Name     | (913) 897-4196 |
