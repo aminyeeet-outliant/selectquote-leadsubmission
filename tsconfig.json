@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "commonjs",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "outDir": "dist",
+        "types": [
+            "node",
+            "@cucumber/cucumber"
+        ]
+    },
+    "include": [
+        "tests/**/*.ts"
+    ]
+}
