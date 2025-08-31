@@ -17,8 +17,8 @@ It supports **desktop and mobile execution**, records test runs, and generates C
 1. Clone the repository:
 
    ```bash
-   git clone <repo-url>
-   cd <repo-folder>
+   git clone https://github.com/aminyeeet-outliant/selectquote-leadsubmission.git
+   cd selectquote-leadsubmission
    ```
 
 2. Install dependencies:

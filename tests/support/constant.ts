@@ -36,7 +36,7 @@ export const SELECTORS = {
     },
     CONFIRMATION: {
         EMAIL_TEXT: 'span.user-email',
-        PHONE_NUMBER_TEXT: 'a.scode-phone-number'
+        PHONE_NUMBER_TEXT: 'a.scode-phone-number:visible'
     }
 }
 
