@@ -41,6 +41,80 @@ When("the user selects gender {string}", async function (this: PlaywrightWorld, 
     this.testData.gender = gender
 });
 
+When("the user selects overall health {string}", async function (this: PlaywrightWorld, health: string) {
+    await this.page.locator("label", { hasText: new RegExp(`^${health}$`) }).click()
+    this.testData.health = health
+});
+
+When("the user input height ft {string}, inches {string} and weight {string}", async function (this: PlaywrightWorld, ft: string, inches: string, weight: string) {
+    await this.page.locator(SELECTORS.QOUTE_FORM.HEIGHT_FT).fill(ft)
+    await this.page.locator(SELECTORS.QOUTE_FORM.HEIGHT_INCHES).fill(inches)
+    await this.page.locator(SELECTORS.QOUTE_FORM.WEIGHT_FIELD).fill(weight)
+    this.testData.ft = ft
+    this.testData.inches = inches
+    this.testData.weight = weight
+});
+
+When("the user selects current insurance {string}", async function (this: PlaywrightWorld, currentInsurance: string) {
+    await this.page.locator("label", { hasText: new RegExp(`^${currentInsurance}$`) }).click()
+    this.testData.currentInsurance = currentInsurance
+});
+
+When("the user selects type of insurance {string}", async function (this: PlaywrightWorld, insuranceType: string) {
+    await this.page.locator("label", { hasText: new RegExp(`^${insuranceType}$`) }).click()
+    this.testData.insuranceType = insuranceType
+});
+
+When("the user selects annual income from salary and wages {string}", async function (this: PlaywrightWorld, income: string) {
+    await this.page.locator("label", { hasText: income }).click()
+    this.testData.income = income
+});
+
+When("the user selects coverage {string} adn term {string}", async function (this: PlaywrightWorld, coverage: string, term: string) {
+    await this.page.locator(SELECTORS.QOUTE_FORM.COVERAGE_WITH_TERM).selectOption(coverage)
+    await this.page.locator(SELECTORS.QOUTE_FORM.TERM_FIELD).selectOption(term)
+    this.testData.coverage = coverage
+    this.testData.term = term
+});
+
+When("the user selects smoke {string}", async function (this: PlaywrightWorld, smoke: string) {
+    await this.page.locator("label", { hasText: new RegExp(`^${smoke}$`) }).click()
+    this.testData.smoke = smoke
+});
+
+When("the user selects condition {string}", async function (this: PlaywrightWorld, condition: string) {
+    await this.page.locator("label", { hasText: new RegExp(`^${condition}$`) }).click()
+    this.testData.condition = condition
+});
+
+When("the user selects violations {string}", async function (this: PlaywrightWorld, violations: string) {
+    await this.page.locator("label", { hasText: new RegExp(`^${violations}$`) }).click()
+    this.testData.violations = violations
+});
+
+When("the user selects activities {string}", async function (this: PlaywrightWorld, activities: string) {
+    await this.page.locator(SELECTORS.QOUTE_FORM.ACTIVITIES_LABEL_NO).waitFor({state: "visible"})
+    await this.page.locator("label", { hasText: activities }).click()
+    this.testData.activities = activities
+});
+
+When("the user selects disease history {string}", async function (this: PlaywrightWorld, diseaseHistory: string) {
+    await this.page.locator(SELECTORS.QOUTE_FORM.HEREDITARY_LABEL_NO).waitFor({state: "visible"})
+    await this.page.locator("label", { hasText: new RegExp(`^${diseaseHistory}$`) }).click()
+    this.testData.diseaseHistory = diseaseHistory
+});
+
+When("the user input address {string}", async function (this: PlaywrightWorld, zip: string) {
+    const inputField = this.page.locator(SELECTORS.QOUTE_FORM.ADDRESS_FIELD)
+    await inputField.pressSequentially(zip.substring(0, 3), {delay: 1000})
+    await inputField.press("Enter")
+});
+
+When("the user selects referral {string}", async function (this: PlaywrightWorld, referral: string) {
+    await this.page.locator(SELECTORS.QOUTE_FORM.REFERRAL_FIELD).selectOption(referral)
+    this.testData.referral = referral
+});
+
 When("the user selects coverage {string}", async function (this: PlaywrightWorld, coverage: string) {
     await this.page.locator(SELECTORS.QOUTE_FORM.COVERAGE_AMOUNT).selectOption(coverage)
     this.testData.coverage = coverage
@@ -85,20 +159,43 @@ When("the user click the Get Free Quotes button", async function (this: Playwrig
     }
 });
 
+When("the user click the Submit button", async function (this: PlaywrightWorld) {
+    const finalRequestPromise = this.page.waitForRequest(request =>
+        request.url().includes(URLS.API_POST_QUOTE_FORM) && request.method() === "POST"
+    );
+
+    await this.page.locator(SELECTORS.QOUTE_FORM.BUTTON_NEXT).click()
+    const finalRequest = await finalRequestPromise;
+
+    try {
+        // Get the payload of /api/postFinalExpenseQuoteForm
+        const postData = finalRequest.postData();
+        if (postData) this.finalExpenseQuoteFormPayload = JSON.parse(postData);
+    } catch (err) {
+        console.error("Error parsing payload:", err);
+    }
+
+    await this.page.locator(SELECTORS.CONFIRMATION.EMAIL_TEXT).waitFor({state: "visible"})
+});
+
 Then("user should be redirected to the correct confirmation page", async function (this: PlaywrightWorld) {
     const message = this.page.locator("h3", { hasText: "Thank you! Your quote is being processed." })
     await expect(message).toBeVisible()
 });
 
-Then("confirmation url should be correct", async function (this: PlaywrightWorld) {
-    expect(this.page.url()).toContain(URLS.CONFIRMATION_PAGE)
+Then("confirmation final expense url should be correct", async function (this: PlaywrightWorld) {
+    expect(this.page.url()).toContain(URLS.CONFIRMATION_FINAL_PAGE)
+})
+
+Then("confirmation quote form url should be correct", async function (this: PlaywrightWorld) {
+    expect(this.page.url()).toContain(URLS.CONFIRM_QUOTE_PAGE)
 })
 
 Then("email should be the same", async function (this: PlaywrightWorld) {
     await expect(this.page.locator(SELECTORS.CONFIRMATION.EMAIL_TEXT)).toHaveText(this.testData.email)
 })
 
-Then("data provided should match api\\/postFinalExpenseQuoteForm payload", async function (this: PlaywrightWorld) {
+Then("data provided should match api payload", async function (this: PlaywrightWorld) {
     expect(this.finalExpenseQuoteFormPayload).not.toBeUndefined()
 
     compareTestDataToPayload(this.testData.firstName, this.finalExpenseQuoteFormPayload.all_first_name)
@@ -119,7 +216,7 @@ Then("data should be generated into a csv", async function (this: PlaywrightWorl
         "Email": this.testData.email || "",
         "Confirmation Page": this.page.url() || "",
         "Test Recording": "",
-        "Phone in the confirmation page": await this.page.locator(SELECTORS.CONFIRMATION.PHONE_NUMBER_TEXT).textContent() || "",
+        "Phone in the confirmation page": await this.page.locator(SELECTORS.CONFIRMATION.PHONE_NUMBER_TEXT).first().textContent() || "",
         "QA Note": "",
         "Dev Note": "",
         "Does Lead Post": "",
