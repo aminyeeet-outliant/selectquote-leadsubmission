@@ -4,7 +4,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "npx cucumber-js"
+    "test:desktop": "npx cucumber-js --tags '@desktop'",
+    "test:mobile": "npx cucumber-js --tags '@mobile'",
+    "test": "npx cucumber-js "
   },
   "keywords": [],
   "author": "",

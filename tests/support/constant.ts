@@ -1,10 +1,15 @@
+import path from "path";
+
 export const URLS = {
-    HOMEPAGE: "https://stg-life-selectquote.outliant.com/"
+    HOMEPAGE: "https://stg-life-selectquote.outliant.com/",
+    CONFIRMATION_PAGE: "https://stg-life-selectquote.outliant.com/final-expenses/quote-form/confirmation-g",
+    API_FINAL_EXPENSE_QUOTE_FORM: "/api/postFinalExpenseQuoteForm",
 }
 
 export const SELECTORS = {
     HOME: {
-        BUTTON_GET_A_QUOTE: 'a[href="/quote-form"]'
+        BUTTON_GET_A_QUOTE: 'a[href="/quote-form"]',
+        MOBILE_BURGER_ICON: 'div.burger-logo'
     },
     QOUTE_FORM: {
         MONTH: 'select[name="month"]',
@@ -19,6 +24,10 @@ export const SELECTORS = {
         PHONE_FIELD: 'input[name="Phone"]'
     },
     CONFIRMATION: {
-        EMAIL_TEXT: 'span.user-email'
+        EMAIL_TEXT: 'span.user-email',
+        PHONE_NUMBER_TEXT: 'a.scode-phone-number'
     }
 }
+
+export const VIDEO_DIR = path.join(process.cwd(), "reports", "videos");
+export const CSV_DIR = path.join(process.cwd(), "reports");
