@@ -8,7 +8,7 @@ It supports **desktop and mobile execution**, records test runs, and generates C
 ## 📦 Prerequisites
 
 * [Node.js](https://nodejs.org/) (>= 20.x recommended)
-* [npm](https://www.npmjs.com/)
+* [npm](https://www.npmjs.com/) (any version will do)
 
 ---
 
