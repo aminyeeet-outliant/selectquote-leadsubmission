@@ -1,8 +1,8 @@
 import { Given, When, Then } from "@cucumber/cucumber";
-import { SELECTORS, URLS } from "../support/constant.ts";
-import { PlaywrightWorld } from "../support/world.ts";
+import { SELECTORS, URLS } from "../support/constant";
+import { PlaywrightWorld } from "../support/world";
 import { expect } from "@playwright/test";
-import { compareTestDataToPayload, formatDate, getGenderValue, getTodayDate, saveDictToCSV } from "../support/util.ts";
+import { compareTestDataToPayload, formatDate, getGenderValue, getTodayDate, saveDictToCSV } from "../support/util";
 
 
 Given("the user access the SelectQuote homepage", async function (this: PlaywrightWorld) {

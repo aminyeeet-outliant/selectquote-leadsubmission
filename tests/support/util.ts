@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 import * as fs from "fs";
 import * as path from "path";
-import { CSV_DIR } from "./constant.ts";
+import { CSV_DIR } from "./constant";
 
 export function compareTestDataToPayload(payloadData?: string, testDataValue?: string) {
     if (testDataValue) {

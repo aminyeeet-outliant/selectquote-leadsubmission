@@ -3,7 +3,7 @@ import type { PlaywrightWorld } from "./world";
 import { devices, chromium } from "playwright";
 import type { Browser } from "playwright";
 import fs from "fs";
-import { VIDEO_DIR } from "./constant.ts";
+import { VIDEO_DIR } from "./constant";
 
 
 let browser: Browser;

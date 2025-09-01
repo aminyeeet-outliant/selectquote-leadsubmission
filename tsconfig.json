@@ -10,8 +10,6 @@
             "node",
             "@cucumber/cucumber"
         ],
-        "allowImportingTsExtensions": true,
-        "noEmit": true,
     },
     "include": [
         "tests/**/*.ts"

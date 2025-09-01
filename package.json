@@ -1,12 +1,12 @@
 {
   "name": "select-qoute",
   "version": "1.0.0",
-  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test:desktop": "npx cucumber-js --tags '@desktop'",
-    "test:mobile": "npx cucumber-js --tags '@mobile'",
-    "test": "npx cucumber-js"
+    "build": "npx tsc",
+    "test:desktop": "npm run build && npx cucumber-js --tags '@desktop'",
+    "test:mobile": "npm run build && npx cucumber-js --tags '@mobile'",
+    "test": "npm run build && npx cucumber-js"
   },
   "keywords": [],
   "author": "",

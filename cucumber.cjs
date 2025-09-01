@@ -2,9 +2,8 @@ module.exports = {
     default: {
       // Load TypeScript files directly
       require: [
-        "ts-node/register",
-        "tests/steps/**/*.ts",
-        "tests/support/**/*.ts"
+        'dist/steps/**/*.js',
+        'dist/support/**/*.js'
       ],
       // Where your .feature files live
       paths: ["tests/features/**/*.feature"],
